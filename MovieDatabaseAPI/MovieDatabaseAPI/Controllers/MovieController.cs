@@ -43,5 +43,12 @@ namespace MovieDatabaseAPI.Controllers
             var result = await _movieRepository.UpdateMovie(MovieRequest);
             return Ok(result);
         }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> DeleteMovie([FromQuery] string Title)
+        {
+            var result = await _movieRepository.DeleteMovie(Title);
+            return Ok(result);
+        }
     }
 }
