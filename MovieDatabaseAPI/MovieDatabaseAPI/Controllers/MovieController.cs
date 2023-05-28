@@ -36,5 +36,12 @@ namespace MovieDatabaseAPI.Controllers
             var result = await _movieRepository.SearchMovie(SearchRequest);
             return Ok(result);
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateMovie([FromQuery]UpdateMovieDto MovieRequest)
+        {
+            var result = await _movieRepository.UpdateMovie(MovieRequest);
+            return Ok(result);
+        }
     }
 }

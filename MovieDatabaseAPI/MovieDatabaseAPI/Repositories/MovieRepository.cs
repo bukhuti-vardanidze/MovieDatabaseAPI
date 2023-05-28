@@ -10,6 +10,7 @@ namespace MovieDatabaseAPI.Repositories
         Task<Movie> AddMovie(AddMoviesDto request);
         Task<List<Movie>> GetMovieById(int id);
         Task<List<Movie>> SearchMovie(SearchMovieDto request);
+        Task<Movie> UpdateMovie(UpdateMovieDto UpdateRequest);
     }
     public class MovieRepository : IMovieRepository
     {
@@ -54,6 +55,26 @@ namespace MovieDatabaseAPI.Repositories
                                   ).ToListAsync();
             return searchResult;
             
+        }
+
+        public async Task<Movie> UpdateMovie(UpdateMovieDto UpdateRequest)
+        {
+            var searchMovie = await _context.Movies.Where(x =>
+                                     x.Name.Contains(UpdateRequest.Name)).FirstOrDefaultAsync();
+
+            
+
+
+            searchMovie.Name = UpdateRequest.Name;
+            searchMovie.ShortDescription = UpdateRequest.ShortDescription;
+            searchMovie.Director = UpdateRequest.Director;
+            searchMovie.Statuss = Statuss.Active;
+            searchMovie.CreateDate = DateTime.Now;
+               
+           _context.Movies.Update(searchMovie);
+            await _context.SaveChangesAsync();
+            return searchMovie;
+
         }
     }
 }
