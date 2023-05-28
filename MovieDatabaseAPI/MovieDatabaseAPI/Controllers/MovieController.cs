@@ -22,5 +22,19 @@ namespace MovieDatabaseAPI.Controllers
             var result = await _movieRepository.AddMovie(MovieRequest);
             return Ok(result);
         }
+
+        [HttpGet("ById")]
+        public async Task<IActionResult> GetMovieById([FromQuery]int Id)
+        {
+            var result =await _movieRepository.GetMovieById(Id);
+            return Ok(result);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchMovie([FromQuery] SearchMovieDto SearchRequest)
+        {
+            var result = await _movieRepository.SearchMovie(SearchRequest);
+            return Ok(result);
+        }
     }
 }
